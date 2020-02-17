@@ -1,0 +1,11 @@
+<div class="container">
+  <%= simple_form_for(@stuff) do |f| %>
+    <%= f.input :name %>
+    <%= simple_fields_for :days do |x| %>
+      <% %w(monday tuesday wednesday thursday friday saturday sunday).each do |day| %>
+        <%= x.input day.to_sym, as: :boolean %>
+      <% end %>
+    <% end %>
+    <%= f.submit 'Create Stuff' %>
+  <% end %>
+</div>

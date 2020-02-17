@@ -1,0 +1,10 @@
+<div class="container">
+  <%= @stuff.name %>
+
+  <div class="panel panel-primary">
+    <%= simple_form_for([@stuff, @booking]) do |f|  %>
+      <%= f.input :day, input_html: { class: 'flatpickr' } %>
+      <%= f.submit 'Book This Stuff', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
