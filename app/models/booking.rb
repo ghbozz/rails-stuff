@@ -8,8 +8,10 @@ class Booking < ApplicationRecord
   private
 
   def days_inclusion
-    if !self.stuff.availabilities.include?(self.day)
-      errors.add(:day, "Day should be include in availabilities")
+    if self.day
+      if !self.stuff.availabilities.include?(self.day.strftime("%A").downcase)
+        errors.add(:day, "Day should be include in availabilities")
+      end
     end
   end
 end
