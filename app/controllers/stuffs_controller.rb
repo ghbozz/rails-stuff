@@ -22,17 +22,17 @@ class StuffsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  # def edit
+  # end
 
-  def update
-  end
+  # def update
+  # end
 
-  def destroy
-  end
+  # def destroy
+  # end
 
   private
-  
+
   def stuff_params
     params.require(:stuff).permit(:name)
   end

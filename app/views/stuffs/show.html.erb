@@ -3,7 +3,7 @@
 
   <div class="panel panel-primary">
     <%= simple_form_for([@stuff, @booking]) do |f|  %>
-      <input name="day" class="flatpickr"></input>
+      <input name="day" class="flatpickr" />
       <%= f.input :day, label: false, input_html: { class: 'd-none' } %>
       <%= f.submit 'Book This Stuff', class: 'btn btn-primary' %>
     <% end %>
