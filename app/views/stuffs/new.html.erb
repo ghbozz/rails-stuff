@@ -1,5 +1,5 @@
 <div class="container">
-  <%= simple_form_for(@stuff) do |f| %>
+  <%= simple_form_for @stuff do |f| %>
     <%= f.input :name %>
     <%= simple_fields_for :days do |x| %>
       <% Stuff::AVAILABILITIES.each do |day| %>
