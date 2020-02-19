@@ -13,17 +13,68 @@
 
 <!-- accept: "image/png,image/gif,image/jpeg" -->
 
+<style>
+	.container {
+		height: 75vh;
+		display: flex;
+		align-items: center;
+	}
+
+	.form-wrapper {
+		margin: 0 auto;
+		width: 75%;
+	}
+
+	.form-footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.btn {
+		width: 200px;
+		margin: 10px 0px;
+	}
+</style>
+
 <div class="container">
-  <%= simple_form_for @stuff do |f| %>
-    <%= f.input :name %>
-		
-		<%= f.hidden_field :photo, value: @stuff.photo.signed_id if @stuff.photo.attached? %>
-		<%= f.file_field :photo, direct_upload: true %>
-		
-		<% if @stuff.photo.attached? %>
-			<p class="mt-2">Cached File: <%= @stuff.photo.filename.base.truncate(30) %></p>
-		<% end %>
-		
-    <%= f.submit 'Create Stuff' %>
-  <% end %>
+	<div class="form-wrapper">
+	  <%= simple_form_for @stuff do |f| %>
+	    <%= f.input :name %>
+			
+			<%= f.hidden_field :photo, value: @stuff.photo.signed_id if @stuff.photo.attached? %>
+			<%= f.file_field :photo, direct_upload: true, class: 'd-none', id: 'file-input' %>
+			
+			<div class="form-footer">
+
+				<div>
+					<span class="btn btn-primary" id="toggle-file">
+						<%= @stuff.errors.messages[:photo].any? ? 'Photo cannot be blank' : 'Choose a file' %>
+					</span>
+
+					<% if @stuff.photo.attached? %>
+						<span class="mt-2 ml-2" id="file-info">Cached file: <%= @stuff.photo.filename.base %></span>
+					<% else %>
+						<span class="mt-2 ml-2" id="file-info"></span>
+					<% end %>
+				</div>
+
+		    <%= f.submit 'Create Stuff', class: 'btn btn-info d-block' %>
+			</div>
+	  <% end %>
+	</div>
 </div>
+
+<script>
+	const btn = document.querySelector('#toggle-file');
+	const fileInput = document.querySelector('#file-input');
+	const fileInfo = document.querySelector('#file-info');
+
+	btn.addEventListener('click', () => {
+		fileInput.click();
+	});
+
+	fileInput.addEventListener('change', (e) => {
+		fileInfo.innerText = `Selected file: ${e.target.files[0].name}`
+	});
+</script>
