@@ -1,10 +1,24 @@
 <div class="container">
   <%= @stuff.name %>
 
+  <div class="bookings-list">
+  	<ul>
+  		<% @stuff.bookings.each do |booking| %>
+  			<li>Booked from <%= booking.start_date.strftime("%B %d, %Y") %> to <%= booking.end_date.strftime("%B %d, %Y") %> - <%= link_to 'X', booking_path(booking), method: :delete %></li>
+  		<% end %>
+  	</ul>
+  </div>
+
   <div class="panel panel-primary">
+  	<% if @booking.errors.any? %>
+  		<span><%= @booking.errors.messages.values.flatten.join('') %></span>
+  	<% end %>
     <%= simple_form_for([@stuff, @booking]) do |f|  %>
-      <input name="day" class="flatpickr" />
-      <%= f.input :day, label: false, input_html: { class: 'd-none' } %>
+      <!-- <input name="day" class="flatpickr" /> -->
+      <input name="start_date" class="flatpickr" />
+      <input name="end_date" class="flatpickr" />
+      <%= f.input :stuff_id, label: false, input_html: { class: 'd-none', value: @stuff.id } %>
+      <%#= f.input :end_date, label: false, input_html: { class: 'flatpickr d-none' } %>
       <%= f.submit 'Book This Stuff', class: 'btn btn-primary' %>
     <% end %>
   </div>

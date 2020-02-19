@@ -13,7 +13,6 @@ class StuffsController < ApplicationController
 
   def create
     @stuff = Stuff.new(stuff_params.merge(user: current_user))
-    @stuff.availabilities = params[:days].select { |_, v| v == '1' }.keys
 
     if @stuff.save
       redirect_to stuff_path(@stuff)
@@ -34,7 +33,7 @@ class StuffsController < ApplicationController
   private
 
   def stuff_params
-    params.require(:stuff).permit(:name)
+    params.require(:stuff).permit(:name, :photo)
   end
 
 end

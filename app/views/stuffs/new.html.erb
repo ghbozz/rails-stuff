@@ -1,11 +1,29 @@
+<!-- <div class="container">
+  <%#= simple_form_for @stuff do |f| %>
+    <%#= f.input :name %>
+		
+		<%#= f.hidden_field :photo, value: @stuff.photo.signed_id if @stuff.photo.attached? %>
+		<%#= f.file_field :photo, direct_upload: true %>
+
+		<p class="mt-2">Cached File: <%#= @stuff.photo.filename.base.truncate(30) if @stuff.photo.attached? %></p>
+
+    <%#= f.submit 'Create Stuff' %>
+  <%# end %>
+</div> -->
+
+<!-- accept: "image/png,image/gif,image/jpeg" -->
+
 <div class="container">
   <%= simple_form_for @stuff do |f| %>
     <%= f.input :name %>
-    <%= simple_fields_for :days do |x| %>
-      <% Stuff::AVAILABILITIES.each do |day| %>
-        <%= x.input day.to_sym, as: :boolean %>
-      <% end %>
-    <% end %>
+		
+		<%= f.hidden_field :photo, value: @stuff.photo.signed_id if @stuff.photo.attached? %>
+		<%= f.file_field :photo, direct_upload: true %>
+		
+		<% if @stuff.photo.attached? %>
+			<p class="mt-2">Cached File: <%= @stuff.photo.filename.base.truncate(30) %></p>
+		<% end %>
+		
     <%= f.submit 'Create Stuff' %>
   <% end %>
 </div>

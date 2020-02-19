@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :stuffs do
     resources :bookings, only: %i(create) 
   end
+
+  resources :bookings, only: %i(destroy)
 end
